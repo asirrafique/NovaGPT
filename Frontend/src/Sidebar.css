@@ -1,0 +1,446 @@
+.sidebar {
+    width: 270px;
+    height: 100vh;
+    background: var(--sidebar);
+  color: var(--text);
+
+    display: flex;
+    flex-direction: column;
+
+    border-right: 1px solid var(--border);
+}
+
+/* =======================
+   TOP
+======================= */
+
+.sidebarTop {
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding: 18px 16px;
+}
+
+.logoContainer{
+    display:flex;
+    align-items:center;
+}
+
+.topActions{
+    display:flex;
+    align-items:center;
+}
+
+.logo {
+    width: 30px;
+    height: 30px;
+    object-fit: contain;
+}
+
+.logoContainer h2 {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--text);
+}
+
+.newChatIconBtn{
+    width:40px;
+    height:40px;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    border:none;
+    outline:none;
+
+    background:transparent;
+    color: var(--text);
+
+    border-radius:10px;
+    cursor:pointer;
+
+    transition:all .2s ease;
+}
+
+.newChatIconBtn:hover{
+   background: var(--hover);
+}
+
+.newChatIconBtn svg{
+    width:22px;
+    height:22px;
+}
+
+/* =======================
+   HISTORY
+======================= */
+
+.historySection {
+    flex: 1;
+    overflow: hidden;
+
+    display: flex;
+    flex-direction: column;
+
+    padding: 0 12px;
+}
+
+.historyTitle {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--heading-secondary);
+
+    margin-bottom: 12px;
+    padding-left: 8px;
+    letter-spacing: 0.3px;
+}
+
+.history {
+    list-style: none;
+
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+
+    padding-right: 4px;
+}
+
+/* Custom Scrollbar */
+
+.history::-webkit-scrollbar {
+    width: 6px;
+}
+
+.history::-webkit-scrollbar-thumb {
+    background: #444;
+    border-radius: 20px;
+}
+
+.history::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+/* =======================
+   CHAT ITEM
+======================= */
+
+.historyItem {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 11px 12px;
+
+    border-radius: 10px;
+
+    cursor: pointer;
+
+    transition: .2s;
+
+    color: var(--text);
+}
+
+.historyItem:hover {
+    background: var(--hover);
+}
+
+.historyItem.active {
+    background: var(--active);
+}
+
+.threadTitle {
+    flex: 1;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    font-size: 14px;
+}
+
+.menuBtn{
+
+    border:none;
+    background:transparent;
+
+    color: var(--text);
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    cursor:pointer;
+
+    opacity:0;
+
+    transition:.2s;
+}
+
+.historyItem:hover .menuBtn{
+    opacity:1;
+}
+
+.menuBtn:hover{
+    color:white;
+}
+
+/* =======================
+   EMPTY HISTORY
+======================= */
+
+.emptyHistory {
+    color: #777;
+    font-size: 14px;
+    padding: 15px 10px;
+}
+
+/* =======================
+   GUEST CARD
+======================= */
+
+.sidebarBottom{
+    padding:12px;
+
+    border-top:1px solid var(--border);
+}
+
+.guestCard{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:14px;
+}
+
+.guestAvatar{
+    width:56px;
+    height:56px;
+
+    border-radius:50%;
+    background:#343541;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    color:#ECECEC;
+    font-size:22px;
+}
+
+.guestInfo{
+    text-align:center;
+}
+
+.guestInfo h4{
+    margin:0;
+    color: var(--text);
+    font-size:22px;
+}
+
+.guestInfo p{
+    margin-top:5px;
+    color:#9ca3af;
+    font-size:12px;
+}
+
+.guestButtons{
+    width:100%;
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+}
+
+.loginBtn,
+.signupBtn{
+    width:100%;
+    height:42px;
+
+    border-radius:12px;
+    border:none;
+
+    font-size:15px;
+    font-weight:600;
+
+    cursor:pointer;
+    transition:.2s;
+}
+
+.loginBtn{
+    background: var(--text);
+color: var(--sidebar);
+}
+
+.loginBtn:hover{
+    background:#ececec;
+}
+
+.signupBtn{
+    background:transparent;
+    color: var(--text);
+border:1px solid var(--border);
+}
+
+.signupBtn:hover{
+    background: var(--hover);
+}
+
+/* =======================
+   RESPONSIVE
+======================= */
+
+@media (max-width: 900px) {
+    .sidebar {
+        width: 240px;
+    }
+
+    .logoContainer h2 {
+        font-size: 20px;
+    }
+}
+
+
+.renameInput {
+    width: 100%;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: var(--text);
+    font-size: 14px;
+    font-family: inherit;
+}
+
+.profile{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    padding:10px 12px;
+
+    border-radius:14px;
+
+    cursor:pointer;
+
+    transition:all .2s ease;
+}
+
+.profile:hover{
+    background: var(--hover);
+}
+
+.profileLeft{
+    display:flex;
+    align-items:center;
+    gap:12px;
+
+    flex:1;
+    min-width:0;
+}
+
+.profileIcon{
+    width:38px;
+    height:38px;
+
+    border-radius:50%;
+
+    background:linear-gradient(135deg,#5B5DF5,#6F4CFF);
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    color:white;
+
+    font-size:16px;
+    font-weight:700;
+
+    flex-shrink:0;
+}
+
+.profileInfo{
+    display:flex;
+    flex-direction:column;
+
+    overflow:hidden;
+}
+
+.profileInfo h4{
+    margin:0;
+
+    color: var(--text);
+
+    font-size:16px;
+
+    font-weight:700;
+
+    letter-spacing:0.2px;
+
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+}
+
+.profileInfo span{
+    margin-top:2px;
+
+    color:#9ca3af;
+
+    font-size:12px;
+}
+
+.logoutBtn{
+    width:100%;
+    height:42px;
+
+    border:none;
+    border-radius:10px;
+
+    background:#ef4444;
+    color:white;
+
+    cursor:pointer;
+
+    font-weight:600;
+}
+
+.profileMenuBtn{
+
+    width:34px;
+    height:34px;
+
+    border:none;
+    outline:none;
+
+    background:transparent;
+
+    color:#9ca3af;
+
+    border-radius:8px;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    cursor:pointer;
+
+    opacity:0;
+
+    transition:.2s;
+}
+
+.profile:hover .profileMenuBtn{
+    opacity:1;
+}
+
+.profileMenuBtn:hover{
+    background: var(--hover);
+color: var(--text);
+}
+
+.profile,
+.historyItem,
+.newChatIconBtn{
+    transition:all .18s ease;
+}

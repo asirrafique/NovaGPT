@@ -1,0 +1,81 @@
+.authOverlay{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.6);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    z-index:9999;
+    backdrop-filter:blur(6px);
+}
+
+.authModal{
+    width:400px;
+    background:#202123;
+    border:1px solid #333;
+    border-radius:16px;
+    padding:30px;
+    display:flex;
+    flex-direction:column;
+    gap:15px;
+    position:relative;
+}
+
+.authModal h2{
+    color:white;
+    text-align:center;
+}
+
+.authModal input{
+    height:45px;
+    border:none;
+    outline:none;
+    border-radius:10px;
+    background:#2b2c2f;
+    color:white;
+    padding:0 15px;
+    font-size:15px;
+}
+
+.authBtn{
+    height:46px;
+    border:none;
+    border-radius:10px;
+    background:white;
+    color:black;
+    font-weight:600;
+    cursor:pointer;
+}
+
+.authBtn:hover{
+    opacity:.95;
+}
+
+.closeBtn{
+    position:absolute;
+    top:15px;
+    right:15px;
+    background:none;
+    border:none;
+    color:white;
+    font-size:24px;
+    cursor:pointer;
+}
+
+.authError{
+    color:#ff6b6b;
+    font-size:14px;
+    text-align:center;
+}
+
+.switchText{
+    color:#aaa;
+    text-align:center;
+    font-size:14px;
+}
+
+.switchText span{
+    color:white;
+    cursor:pointer;
+    font-weight:600;
+}

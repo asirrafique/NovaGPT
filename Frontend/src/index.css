@@ -1,0 +1,30 @@
+/* Light Theme (Default) */
+:root {
+  --bg: #f5f5f5;
+  --sidebar: #ffffff;
+  --card: #ffffff;
+  --text: #111827;
+  --text-secondary: #6b7280;
+  --border: #d1d5db;
+  --hover: #f0f0f0;
+  --active: #e5e7eb;
+  --heading-secondary: #374151;
+}
+
+/* Dark Theme */
+[data-theme="dark"] {
+  --bg: #202123;
+  --sidebar: #171717;
+  --card: #2b2d31;
+  --text: #ffffff;
+  --text-secondary: #b3b3b3;
+  --border: #3b3b3b;
+  --hover: #2b2b2b;
+  --active: #343541;
+  --heading-secondary: #9ca3af;
+}
+
+body{
+    background: var(--bg);
+    color: var(--text);
+}
