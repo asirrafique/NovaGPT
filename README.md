@@ -19,7 +19,7 @@
 
 NovaGPT is a full-stack AI chatbot inspired by ChatGPT, developed using the MERN Stack and powered by Google's Gemini API. It provides users with an intuitive chat experience, enabling natural conversations with AI while securely managing authentication and preserving chat history.
 
-Designed with performance and scalability in mind, NovaGPT supports Markdown formatting, syntax-highlighted code blocks, and a responsive interface that works seamlessly across desktop and mobile devices.
+Designed with performance and scalability in mind, NovaGPT supports Markdown formatting, syntax-highlighted code blocks, and a responsive interface that works seamlessly across desktops.
 
 ---
 
