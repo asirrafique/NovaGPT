@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const API = axios.create({
-    baseURL: "http://localhost:8080/api/auth",
+    baseURL: `${import.meta.env.VITE_BACKEND_URL}/api/auth`,
 });
 
 export const updateProfile = (token, data) =>

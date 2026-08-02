@@ -101,7 +101,7 @@ const handleMenuClose = () => {
     const getAllThreads = async () => {
         try {
             const response = await fetch(
-    "http://localhost:8080/api/thread",
+    `${import.meta.env.VITE_BACKEND_URL}/api/thread`,
     {
         headers: {
             Authorization: `Bearer ${token}`,
@@ -150,7 +150,7 @@ const handleMenuClose = () => {
 
         try {
             const response = await fetch(
-    `http://localhost:8080/api/thread/${threadId}`,
+    `${import.meta.env.VITE_BACKEND_URL}/api/thread/${threadId}`,
     {
         headers: {
             Authorization: `Bearer ${token}`,
@@ -187,7 +187,7 @@ setPrevChats(chatsWithPrompt);
 
     const deleteThread = async (threadId) => {
         try {
-            await fetch(`http://localhost:8080/api/thread/${threadId}`, {
+            await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/thread/${threadId}`, {
     method: "DELETE",
     headers: {
         Authorization: `Bearer ${token}`,
@@ -217,7 +217,7 @@ setPrevChats(chatsWithPrompt);
 
     try {
         await fetch(
-    `http://localhost:8080/api/thread/${editingThreadId}/rename`,
+    `${import.meta.env.VITE_BACKEND_URL}/api/thread/${editingThreadId}/rename`,
     {
         method: "PATCH",
         headers: {
@@ -251,7 +251,7 @@ setPrevChats(chatsWithPrompt);
 const togglePinThread = async (threadId) => {
     try {
         const response = await fetch(
-    `http://localhost:8080/api/thread/${threadId}/pin`,
+    `${import.meta.env.VITE_BACKEND_URL}/api/thread/${threadId}/pin`,
     {
         method: "PATCH",
         headers: {

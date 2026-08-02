@@ -148,7 +148,7 @@ if (selectedFile) {
 }
 
 const response = await fetch(
-    "http://localhost:8080/api/chat/stream",
+    `${import.meta.env.VITE_BACKEND_URL}/api/chat/stream`,
     {
         method: "POST",
 
