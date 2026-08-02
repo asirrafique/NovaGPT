@@ -26,10 +26,13 @@ const PORT = process.env.PORT || 8080;
 app.use(express.json());
 
 app.use(
-    cors({
-        origin: "http://localhost:5173",
-        credentials: true,
-    })
+  cors({
+    origin: [
+      "http://localhost:5173",
+      "https://novagpt-frontend-4fht.onrender.com",
+    ],
+    credentials: true,
+  })
 );
 
 // Routes
