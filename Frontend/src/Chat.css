@@ -281,3 +281,349 @@
 .assistantBubble code {
     color: inherit;
 }
+
+/* ============================================================
+   RAG SOURCES
+============================================================ */
+
+.ragSources {
+    margin-top: 18px;
+    padding-top: 14px;
+
+    border-top: 1px solid rgba(128, 128, 128, 0.25);
+}
+
+
+.ragSourcesTitle {
+    display: flex;
+    align-items: center;
+
+    margin-bottom: 10px;
+
+    font-size: 14px;
+    font-weight: 600;
+}
+
+
+.ragSource {
+    display: flex;
+    align-items: flex-start;
+
+    gap: 10px;
+
+    padding: 10px 12px;
+    margin-top: 7px;
+
+    border-radius: 9px;
+
+    background: rgba(128, 128, 128, 0.08);
+
+    transition:
+        background 0.2s ease,
+        transform 0.2s ease;
+}
+
+
+.ragSource:hover {
+    background: rgba(128, 128, 128, 0.13);
+
+    transform: translateY(-1px);
+}
+
+
+.ragSourceNumber {
+    flex-shrink: 0;
+
+    min-width: 24px;
+
+    font-size: 13px;
+    font-weight: 600;
+}
+
+
+.ragSourceInfo {
+    min-width: 0;
+
+    flex: 1;
+}
+
+
+.ragSourceFile {
+    overflow: hidden;
+
+    font-size: 13px;
+    font-weight: 500;
+
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+
+.ragSourceMeta {
+    display: flex;
+    align-items: center;
+
+    gap: 7px;
+
+    margin-top: 4px;
+
+    font-size: 11px;
+
+    opacity: 0.65;
+}
+
+
+.ragSourceSeparator {
+    opacity: 0.6;
+}
+
+
+/* ============================================================
+   AGENT MODE BADGES
+   ============================================================ */
+
+.assistantHeader {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+
+.agentModeBadge {
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    padding: 4px 9px;
+
+    border-radius: 999px;
+
+    font-size: 11px;
+    font-weight: 500;
+
+    line-height: 1;
+
+    white-space: nowrap;
+
+    border: 1px solid rgba(255, 255, 255, 0.08);
+
+    background: rgba(255, 255, 255, 0.05);
+}
+
+
+/* RAG */
+
+.ragBadge {
+    background: rgba(80, 160, 255, 0.10);
+
+    border-color: rgba(80, 160, 255, 0.20);
+}
+
+
+/* MCP */
+
+.mcpBadge {
+    background: rgba(120, 220, 150, 0.10);
+
+    border-color: rgba(120, 220, 150, 0.20);
+}
+
+
+/* Normal Gemini */
+
+.normalBadge {
+    background: rgba(180, 150, 255, 0.10);
+
+    border-color: rgba(180, 150, 255, 0.20);
+}
+
+
+/* ============================================================
+   NOVAGPT AGENT ACTIVITY
+   ============================================================ */
+
+.agentActivity {
+    display: flex;
+
+    align-items: center;
+
+    gap: 9px;
+
+    width: fit-content;
+
+    margin: 0 auto 12px auto;
+
+    padding: 8px 14px;
+
+    border-radius: 999px;
+
+    background:
+        rgba(255, 255, 255, 0.045);
+
+    border:
+        1px solid rgba(255, 255, 255, 0.08);
+
+    color: #bdbdbd;
+
+    font-size: 12px;
+
+    line-height: 1;
+
+    animation:
+        agentActivityFade
+        0.2s
+        ease-in-out;
+}
+
+
+/* Animated dot */
+
+.agentActivityDot {
+    width: 7px;
+
+    height: 7px;
+
+    flex-shrink: 0;
+
+    border-radius: 50%;
+
+    background: #8b5cf6;
+
+    animation:
+        agentActivityPulse
+        1s
+        ease-in-out
+        infinite;
+}
+
+
+/* Pulse */
+
+@keyframes agentActivityPulse {
+
+    0%,
+    100% {
+
+        opacity: 0.35;
+
+        transform:
+            scale(0.8);
+    }
+
+    50% {
+
+        opacity: 1;
+
+        transform:
+            scale(1);
+    }
+}
+
+
+/* Entry animation */
+
+@keyframes agentActivityFade {
+
+    from {
+
+        opacity: 0;
+
+        transform:
+            translateY(4px);
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform:
+            translateY(0);
+    }
+}
+
+
+/* ============================================================
+   AGENT MODE BADGES
+   ============================================================ */
+
+.assistantHeader {
+    display: flex;
+
+    align-items: center;
+
+    gap: 9px;
+}
+
+
+/* Base badge */
+
+.agentModeBadge {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding:
+        4px 9px;
+
+    border-radius:
+        999px;
+
+    font-size:
+        11px;
+
+    font-weight:
+        500;
+
+    line-height:
+        1;
+
+    white-space:
+        nowrap;
+
+    background:
+        rgba(255, 255, 255, 0.05);
+
+    border:
+        1px solid
+        rgba(255, 255, 255, 0.08);
+}
+
+
+/* RAG */
+
+.ragBadge {
+
+    background:
+        rgba(80, 160, 255, 0.10);
+
+    border-color:
+        rgba(80, 160, 255, 0.20);
+}
+
+
+/* MCP */
+
+.mcpBadge {
+
+    background:
+        rgba(120, 220, 150, 0.10);
+
+    border-color:
+        rgba(120, 220, 150, 0.20);
+}
+
+
+/* Normal Gemini */
+
+.normalBadge {
+
+    background:
+        rgba(180, 150, 255, 0.10);
+
+    border-color:
+        rgba(180, 150, 255, 0.20);
+}

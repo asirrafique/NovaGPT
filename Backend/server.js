@@ -19,6 +19,9 @@ import mongoose from "mongoose";
 
 import chatRoutes from "./routes/chat.js";
 import authRoutes from "./routes/auth.js";
+import agentRoutes from "./routes/agent.js";
+import ragRoutes from "./routes/rag.js";
+import documentRoutes from "./routes/documents.js";
 
 const app = express();
 const PORT = process.env.PORT || 8080;
@@ -38,6 +41,9 @@ app.use(
 // Routes
 app.use("/api", chatRoutes);
 app.use("/api/auth", authRoutes);
+app.use("/api/agent", agentRoutes);
+app.use("/api/chat", ragRoutes);
+app.use("/api/documents", documentRoutes);
 
 const connectDB = async () => {
     try {

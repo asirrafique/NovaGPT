@@ -1,5 +1,46 @@
 import mongoose from "mongoose";
 
+const SourceSchema = new mongoose.Schema(
+    {
+        id: {
+            type: Number,
+        },
+
+        fileName: {
+            type: String,
+            default: "",
+        },
+
+        chunkIndex: {
+            type: Number,
+            default: 0,
+        },
+
+        score: {
+            type: Number,
+            default: 0,
+        },
+
+        semanticScore: {
+            type: Number,
+            default: 0,
+        },
+
+        keywordScore: {
+            type: Number,
+            default: 0,
+        },
+
+        compressionScore: {
+            type: Number,
+            default: 0,
+        },
+    },
+    {
+        _id: false,
+    }
+);
+
 const MessageSchema = new mongoose.Schema({
     role: {
         type: String,
@@ -34,6 +75,12 @@ const MessageSchema = new mongoose.Schema({
             type: Number,
             default: 0,
         },
+    },
+
+    // RAG sources used to generate this answer
+    sources: {
+        type: [SourceSchema],
+        default: [],
     },
 
     timestamp: {
