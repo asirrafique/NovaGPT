@@ -10,7 +10,7 @@ import {
     Divider,
 } from "@mui/material";
 
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import { MyContext } from "../MyContext";
 import { updateProfile } from "../services/profileService";
 import toast from "react-hot-toast";
@@ -23,15 +23,9 @@ function ProfileDialog({
 
     const { user, setUser, token, } = useContext(MyContext);
 
-    const [name, setName] = useState("");
+    const [name, setName] = useState(() => user?.name || "");
 
-    useEffect(() => {
-        if (user) {
-            setName(user.name);
-        }
-    }, [user]);
-
-   const [saving, setSaving] = useState(false);
+    const [saving, setSaving] = useState(false);
 
 const handleSave = async () => {
     try {

@@ -98,23 +98,25 @@ const handleMenuClose = () => {
     setAuthMode,
 } = useContext(MyContext);
 
+    useEffect(() => {
     const getAllThreads = async () => {
         try {
             const response = await fetch(
-    `${import.meta.env.VITE_BACKEND_URL}/api/thread`,
-    {
-        headers: {
-            Authorization: `Bearer ${token}`,
-        },
-    }
-);
+                `${import.meta.env.VITE_BACKEND_URL}/api/thread`,
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                }
+            );
+
             const res = await response.json();
 
             const filteredData = res.map((thread) => ({
-    threadId: thread.threadId,
-    title: thread.title,
-    pinned: thread.pinned,
-}));
+                threadId: thread.threadId,
+                title: thread.title,
+                pinned: thread.pinned,
+            }));
 
             setAllThreads(filteredData);
         } catch (err) {
@@ -122,13 +124,12 @@ const handleMenuClose = () => {
         }
     };
 
-    useEffect(() => {
     if (token) {
         getAllThreads();
     } else {
         setAllThreads([]);
     }
-}, [currThreadId, token]);
+}, [currThreadId, token, setAllThreads]);
 
     const createNewChat = () => {
         setEditingThreadId(null);

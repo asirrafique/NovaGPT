@@ -1,11 +1,12 @@
-import { createContext, useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+
 import {
     ThemeProvider as MuiThemeProvider,
     createTheme,
     CssBaseline,
 } from "@mui/material";
 
-export const ThemeContext = createContext();
+import { ThemeContext } from "./ThemeContext.js";
 
 export default function ThemeProvider({ children }) {
     const getInitialTheme = () => {
@@ -71,9 +72,9 @@ export default function ThemeProvider({ children }) {
             }}
         >
             <MuiThemeProvider theme={muiTheme}>
-    <CssBaseline />
-    {children}
-</MuiThemeProvider>
+                <CssBaseline />
+                {children}
+            </MuiThemeProvider>
         </ThemeContext.Provider>
     );
 }

@@ -28,7 +28,6 @@ function ChatWindow() {
 
     setLastPrompt,
 
-    reply,
     setReply,
 
     currThreadId,
@@ -48,7 +47,6 @@ function ChatWindow() {
 
     ragLoading,
 
-    ragSources,
     setRagSources,
   } = useContext(MyContext);
 
@@ -58,7 +56,7 @@ function ChatWindow() {
 
   const [loading, setLoading] = useState(false);
 
-  const [regenerating, setRegenerating] = useState(false);
+  const [regenerating] = useState(false);
 
   const [selectedFile, setSelectedFile] = useState(null);
 
@@ -72,20 +70,6 @@ function ChatWindow() {
 
   const [isListening, setIsListening] = useState(false);
 
-  // ============================================================
-  // TEMPORARY CHAT
-  // ============================================================
-
-  const toggleTemporaryChat = () => {
-    // RAG is based on stored documents,
-    // so don't allow the two modes together.
-
-    if (!temporaryChat) {
-      toast.error("Temporary Chat is not available in Document Mode.");
-
-      return;
-    }
-  };
 
   // ============================================================
   // RAG MODE
@@ -242,98 +226,6 @@ function ChatWindow() {
     toast.success("File removed.");
   };
 
-  // ============================================================
-  // NORMAL STREAMING CHAT
-  // ============================================================
-
-  const streamReply = async (message) => {
-    setReply("");
-
-    setLoading(true);
-
-    setNewChat(false);
-
-    try {
-      abortControllerRef.current = new AbortController();
-
-      const formData = new FormData();
-
-      formData.append("message", message);
-
-      formData.append("threadId", currThreadId);
-
-      formData.append("temporaryChat", temporaryChat);
-
-      if (selectedFile) {
-        formData.append("file", selectedFile);
-      }
-
-      const response = await fetch(
-        `${import.meta.env.VITE_BACKEND_URL}/api/chat/stream`,
-        {
-          method: "POST",
-
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-
-          signal: abortControllerRef.current.signal,
-
-          body: formData,
-        },
-      );
-
-      if (!response.ok) {
-        throw new Error("Failed to get response");
-      }
-
-      const reader = response.body.getReader();
-
-      const decoder = new TextDecoder();
-
-      let assistantReply = "";
-
-      while (true) {
-        const { done, value } = await reader.read();
-
-        if (done) {
-          break;
-        }
-
-        const chunk = decoder.decode(value, {
-          stream: true,
-        });
-
-        assistantReply += chunk;
-
-        setReply(assistantReply);
-      }
-
-      setPrevChats((previous) => [
-        ...previous,
-
-        {
-          role: "assistant",
-
-          content: assistantReply,
-
-          prompt: message,
-
-          file: null,
-        },
-      ]);
-    } catch (err) {
-      if (err.name === "AbortError") {
-        console.log("Generation stopped.");
-      } else {
-        console.error("❌ Chat error:", err);
-
-        toast.error(err.message || "Failed to get response.");
-      }
-    } finally {
-      setLoading(false);
-    }
-  };
 
   // ============================================================
   // RAG / DOCUMENT CHAT
