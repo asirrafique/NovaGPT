@@ -1,3 +1,4 @@
+import Thread from "../models/Thread.js";
 import { runNovaAgent } from "../services/agents/novaAgent.js";
 
 export async function agentChat(req, res) {
@@ -11,26 +12,30 @@ export async function agentChat(req, res) {
     if (!userId) {
       return res.status(401).json({
         success: false,
-
         error: "AUTH_REQUIRED",
-
         message: "User authentication required",
       });
     }
 
     // ============================================================
-    // 2. GET MESSAGE
+    // 2. GET REQUEST DATA
     // ============================================================
 
-    const { message } = req.body;
+    const { message, threadId } = req.body;
 
     if (!message || typeof message !== "string") {
       return res.status(400).json({
         success: false,
-
         error: "MESSAGE_REQUIRED",
-
         message: "Message is required",
+      });
+    }
+
+    if (!threadId || typeof threadId !== "string") {
+      return res.status(400).json({
+        success: false,
+        error: "THREAD_ID_REQUIRED",
+        message: "Thread ID is required",
       });
     }
 
@@ -43,9 +48,7 @@ export async function agentChat(req, res) {
     if (!cleanMessage) {
       return res.status(400).json({
         success: false,
-
         error: "MESSAGE_REQUIRED",
-
         message: "Message cannot be empty",
       });
     }
@@ -57,72 +60,149 @@ export async function agentChat(req, res) {
     if (cleanMessage.length > 5000) {
       return res.status(400).json({
         success: false,
-
         error: "MESSAGE_TOO_LONG",
-
         message: "Message must be 5000 characters or less",
       });
     }
 
     // ============================================================
-    // 5. RUN NOVAGPT AGENT
+    // 5. FIND / CREATE THREAD
+    // ============================================================
+
+    let thread = await Thread.findOne({
+      threadId,
+      user: userId,
+    });
+
+    if (!thread) {
+      thread = new Thread({
+        user: userId,
+        threadId,
+        title: cleanMessage,
+        messages: [],
+      });
+    }
+
+    // ============================================================
+    // 6. SAVE USER MESSAGE
+    // ============================================================
+
+    thread.messages.push({
+      role: "user",
+      content: cleanMessage,
+      prompt: cleanMessage,
+    });
+
+    // ============================================================
+    // 7. RUN NOVAGPT AGENT
     // ============================================================
 
     const result = await runNovaAgent({
       message: cleanMessage,
-
       userId,
     });
 
+    const assistantReply = result?.reply || "";
+
+    const normalizedSources = Array.isArray(result?.sources)
+      ? result.sources.map((source, index) => ({
+          id: source.id ?? index + 1,
+
+          fileName:
+            source.fileName ||
+            source.filename ||
+            "Unknown document",
+
+          chunkIndex:
+            source.chunkIndex ??
+            source.chunk ??
+            0,
+
+          score:
+            source.score ??
+            source.rerankScore ??
+            source.semanticScore ??
+            0,
+
+          semanticScore:
+            source.semanticScore ?? 0,
+
+          keywordScore:
+            source.keywordScore ?? 0,
+
+          compressionScore:
+            source.compressionScore ?? 0,
+        }))
+      : [];
+
     // ============================================================
-    // 6. SUCCESS RESPONSE
+    // 8. SAVE ASSISTANT MESSAGE
+    // ============================================================
+
+    thread.messages.push({
+      role: "assistant",
+      content: assistantReply,
+      prompt: cleanMessage,
+      sources: normalizedSources,
+    });
+
+    // ============================================================
+    // 9. SAVE THREAD
+    // ============================================================
+
+    await thread.save();
+
+    // ============================================================
+    // 10. SUCCESS RESPONSE
     // ============================================================
 
     return res.status(200).json({
       success: true,
 
-      reply: result?.reply || "",
+      threadId,
+
+      reply: assistantReply,
 
       mode: result?.mode || "normal",
 
-      sources: Array.isArray(result?.sources) ? result.sources : [],
+      sources: normalizedSources,
 
       metadata: result?.metadata || {},
 
       agent: {
-        toolCalls: Array.isArray(result?.toolTrace) ? result.toolTrace : [],
+        toolCalls: Array.isArray(result?.toolTrace)
+          ? result.toolTrace
+          : [],
 
         durationMs: result?.durationMs || 0,
       },
     });
   } catch (error) {
-    // ============================================================
-    // GLOBAL AGENT ERROR HANDLER
-    // ============================================================
-
-    console.error("❌ Agent error:", error);
+    console.error("AGENT ERROR:", error);
 
     // ============================================================
-    // GEMINI QUOTA EXCEEDED
+    // GEMINI QUOTA / RATE LIMIT
     // ============================================================
+
+    const errorText = String(
+      error?.message || error || ""
+    ).toLowerCase();
 
     if (
-      error?.code === "GEMINI_QUOTA_EXCEEDED" ||
       error?.status === 429 ||
       error?.response?.status === 429 ||
-      error?.message?.includes("RESOURCE_EXHAUSTED") ||
-      error?.message?.includes("quota") ||
-      error?.message?.includes("Quota exceeded")
+      error?.code === "RATE_LIMIT_EXCEEDED" ||
+      errorText.includes("quota") ||
+      errorText.includes("resource exhausted") ||
+      errorText.includes("rate limit")
     ) {
       return res.status(429).json({
         success: false,
 
-        error: "GEMINI_QUOTA_EXCEEDED",
+        error: "RATE_LIMIT_EXCEEDED",
 
         message:
-          "⚠️ Gemini API quota exceeded. " +
-          "Your Gemini API request limit has been reached. " +
-          "Please try again later or check your Gemini API plan and billing.",
+          "⚠️ Gemini API quota exceeded. Your Gemini API request limit has been reached. Please try again later or check your Gemini API plan and billing.",
       });
     }
 
@@ -134,7 +214,7 @@ export async function agentChat(req, res) {
       error?.status === 503 ||
       error?.response?.status === 503 ||
       error?.code === "GEMINI_UNAVAILABLE" ||
-      error?.message?.includes("UNAVAILABLE")
+      errorText.includes("unavailable")
     ) {
       return res.status(503).json({
         success: false,
@@ -142,22 +222,7 @@ export async function agentChat(req, res) {
         error: "GEMINI_UNAVAILABLE",
 
         message:
-          "⚠️ Gemini is temporarily unavailable. " +
-          "Please try again in a moment.",
-      });
-    }
-
-    // ============================================================
-    // GEMINI RATE LIMIT
-    // ============================================================
-
-    if (error?.code === "RATE_LIMIT_EXCEEDED") {
-      return res.status(429).json({
-        success: false,
-
-        error: "RATE_LIMIT_EXCEEDED",
-
-        message: "⚠️ Too many requests. Please try again later.",
+          "⚠️ Gemini is temporarily unavailable. Please try again in a moment.",
       });
     }
 
@@ -165,13 +230,14 @@ export async function agentChat(req, res) {
     // MCP ERROR
     // ============================================================
 
-    if (error?.message?.includes("MCP")) {
+    if (errorText.includes("mcp")) {
       return res.status(500).json({
         success: false,
 
         error: "MCP_ERROR",
 
-        message: "An MCP tool could not be executed. Please try again.",
+        message:
+          "An MCP tool could not be executed. Please try again.",
       });
     }
 
@@ -184,7 +250,9 @@ export async function agentChat(req, res) {
 
       error: "AGENT_ERROR",
 
-      message: error?.message || "NovaGPT agent failed. Please try again.",
+      message:
+        error?.message ||
+        "NovaGPT agent failed. Please try again.",
     });
   }
 }

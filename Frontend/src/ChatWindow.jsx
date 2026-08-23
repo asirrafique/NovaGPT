@@ -401,7 +401,11 @@ function ChatWindow() {
 
       setRagSources([]);
 
-      const response = await askAgent(message.trim(), token);
+      const response = await askAgent(
+  message.trim(),
+  token,
+  currThreadId
+);
 
       const data = response?.data || response;
 
