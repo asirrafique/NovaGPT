@@ -751,7 +751,7 @@ function ChatWindow() {
         {loading && !ragLoading && (
           <div className="agentActivity">
             <span className="agentActivityDot"></span>
-            <span>● 🧠 Analyzing your question...</span>
+            <span> 🧠 Analyzing your question...</span>
           </div>
         )}
 
