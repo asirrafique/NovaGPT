@@ -271,8 +271,8 @@ function Chat({ regenerateReply, regenerating }) {
         ))}
 
         {/* ==================================================
-                    CURRENT ASSISTANT RESPONSE
-                ================================================== */}
+            CURRENT ASSISTANT RESPONSE
+        ================================================== */}
 
         {(reply || ragLoading) && (
           <div className="messageRow assistant">
@@ -289,31 +289,48 @@ function Chat({ regenerateReply, regenerating }) {
 
               {/* RESPONSE */}
 
-              {reply && (
-                <ReactMarkdown
-                  remarkPlugins={[remarkGfm, remarkMath]}
-                  rehypePlugins={[rehypeKatex]}
-                  components={{
-                    code: CodeBlock,
-                  }}
-                >
-                  {reply}
-                </ReactMarkdown>
-              )}
+              {reply &&
+                !(
+                  prevChats.length > 0 &&
+                  prevChats[prevChats.length - 1]?.role === "assistant" &&
+                  prevChats[prevChats.length - 1]?.content === reply
+                ) && (
+                  <ReactMarkdown
+                    remarkPlugins={[remarkGfm, remarkMath]}
+                    rehypePlugins={[rehypeKatex]}
+                    components={{
+                      code: CodeBlock,
+                    }}
+                  >
+                    {reply}
+                  </ReactMarkdown>
+                )}
 
               {/* CURRENT RAG SOURCES */}
 
-              {!ragLoading && renderSources(ragSources)}
+              {!ragLoading &&
+                !(
+                  prevChats.length > 0 &&
+                  prevChats[prevChats.length - 1]?.role === "assistant" &&
+                  prevChats[prevChats.length - 1]?.content === reply
+                ) &&
+                renderSources(ragSources)}
 
               {/* MESSAGE ACTIONS */}
 
-              {!ragLoading && reply && (
-                <MessageActions
-                  text={reply}
-                  regenerateReply={regenerateReply}
-                  regenerating={regenerating}
-                />
-              )}
+              {!ragLoading &&
+                reply &&
+                !(
+                  prevChats.length > 0 &&
+                  prevChats[prevChats.length - 1]?.role === "assistant" &&
+                  prevChats[prevChats.length - 1]?.content === reply
+                ) && (
+                  <MessageActions
+                    text={reply}
+                    regenerateReply={regenerateReply}
+                    regenerating={regenerating}
+                  />
+                )}
             </div>
           </div>
         )}

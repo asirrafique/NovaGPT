@@ -464,6 +464,7 @@ function ChatWindow() {
           toolCalls: data.agent?.toolCalls || [],
         },
       ]);
+      setReply("");
     } catch (error) {
       console.error("❌ Agent request failed:", error);
 
