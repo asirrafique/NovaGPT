@@ -1,0 +1,22 @@
+services:
+  backend:
+    build:
+      context: ./Backend
+    container_name: novagpt-backend
+    env_file:
+      - ./Backend/.env
+    ports:
+      - "8081:8080"
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: ./Frontend
+      args:
+        VITE_BACKEND_URL: http://localhost:8081
+    container_name: novagpt-frontend
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+    restart: unless-stopped
