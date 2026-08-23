@@ -36,7 +36,7 @@ jobs:
         run: docker build -t novagpt-backend:ci .
 
 
-    frontend:
+  frontend:
     name: Frontend CI
     runs-on: ubuntu-latest
 
