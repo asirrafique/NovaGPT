@@ -167,3 +167,7 @@ bcryptjs
 ---
 
 > **Built with ❤️ using React, Node.js, Express.js, MongoDB, and Google Gemini API.**
+
+## CI/CD
+
+NovaGPT uses GitHub Actions for linting, production builds, Docker image validation, and Trivy security scanning before Render deployment.
