@@ -1,11 +1,14 @@
 # 🚀 NovaGPT
 
-> **NovaGPT** is a ChatGPT-inspired AI chatbot built with the **MERN Stack** and **Google Gemini API**, offering intelligent conversations, secure authentication, persistent chat history, Markdown rendering, syntax-highlighted code responses, and a clean, modern user interface.
+> **NovaGPT** is a production-ready, ChatGPT-inspired AI assistant built with the **MERN Stack and Google Gemini API**, featuring persistent conversations, AI agent workflows, document-based RAG, secure authentication, Markdown/code rendering, Dockerized deployment, and an automated CI/CD pipeline.
 
 ![React](https://img.shields.io/badge/React-19-61DAFB?logo=react&logoColor=white)
-![Node.js](https://img.shields.io/badge/Node.js-Express-339933?logo=node.js&logoColor=white)
+![Node.js](https://img.shields.io/badge/Node.js-24-339933?logo=node.js&logoColor=white)
+![Express](https://img.shields.io/badge/Express.js-Backend-000000?logo=express&logoColor=white)
 ![MongoDB](https://img.shields.io/badge/MongoDB-Database-47A248?logo=mongodb&logoColor=white)
-![Google Gemini](https://img.shields.io/badge/Google-Gemini-4285F4?logo=google&logoColor=white)
+![Gemini](https://img.shields.io/badge/Google-Gemini_API-4285F4?logo=google&logoColor=white)
+![Docker](https://img.shields.io/badge/Docker-Containerized-2496ED?logo=docker&logoColor=white)
+![GitHub Actions](https://img.shields.io/badge/GitHub_Actions-CI%2FCD-2088FF?logo=githubactions&logoColor=white)
 
 ---
 
@@ -17,157 +20,102 @@
 
 ## 📖 Overview
 
-NovaGPT is a full-stack AI chatbot inspired by ChatGPT, developed using the MERN Stack and powered by Google's Gemini API. It provides users with an intuitive chat experience, enabling natural conversations with AI while securely managing authentication and preserving chat history.
+NovaGPT is a full-stack AI assistant inspired by ChatGPT and powered by Google's Gemini API.
 
-Designed with performance and scalability in mind, NovaGPT supports Markdown formatting, syntax-highlighted code blocks, and a responsive interface that works seamlessly across desktops.
+The application combines a modern React frontend with a Node.js/Express backend and MongoDB persistence to provide authenticated conversations, persistent chat threads, document-based question answering, and AI agent workflows.
+
+NovaGPT is also containerized with Docker and supported by a GitHub Actions CI/CD pipeline that performs frontend linting, production builds, Docker image validation, and Trivy security scanning before production deployment.
 
 ---
 
 ## ✨ Features
 
-- 🤖 AI-powered conversations using Google Gemini API
-- 💬 Real-time AI chat experience
-- 🔐 Secure User Authentication (Signup/Login)
-- 📜 Persistent Chat History
-- 📝 Markdown Rendering
-- 💻 Syntax Highlighting for Code Responses
-- ⚡ Fast & Responsive Interface
-- 🎨 Clean ChatGPT-inspired UI
-- 🔄 Dynamic AI Response Handling
+### 🤖 AI Assistant
+
+- AI-powered conversations using Google Gemini API
+- Context-aware conversational responses
+- AI agent workflow for intelligent task execution
+- Tool/MCP-based agent execution
+- Agent execution metadata and tool traces
+- AI response modes and source information
+
+### 💬 Chat & Conversation Management
+
+- Persistent chat history
+- Unique conversation/thread IDs
+- Create new conversations
+- Switch between previous conversations
+- Rename conversations
+- Delete conversations
+- Pin conversations
+- Persistent conversation state
+- Recent Chats management
+
+### 📚 Document & RAG
+
+- Document indexing
+- Retrieval-Augmented Generation (RAG)
+- Ask questions about uploaded/indexed documents
+- Retrieved source information
+- Document-aware AI responses
+
+### 🔐 Authentication
+
+- Secure user signup and login
+- JWT-based authentication
+- Password hashing with bcryptjs
+- Protected API routes
+- Authenticated user-specific conversations
+
+### 📝 Rich AI Responses
+
+- Markdown rendering
+- Syntax-highlighted code blocks
+- Mathematical/LaTeX rendering
+- Dynamic response handling
+- Copy, regenerate, like, and dislike interactions
+
+### 🎨 User Experience
+
+- ChatGPT-inspired interface
+- Responsive React UI
+- Light/Dark/System theme support
+- Loading states
+- Voice input support
+- File/document interaction
+- Modern sidebar and conversation management
 
 ---
 
-## 🤖 AI Integration
+## 🧠 AI Architecture
 
-NovaGPT integrates the **Google Gemini API** to generate intelligent, context-aware responses. The application supports rich Markdown formatting and syntax-highlighted code snippets, making it useful for both general conversations and programming assistance.
-
----
-
-## 🛠️ Tech Stack
-
-### Frontend
-
-- React.js
-- React Router DOM
-- CSS3
-- Axios
-- React Markdown
-- Rehype Highlight
-- React Spinners
-- UUID
-
-### Backend
-
-- Node.js
-- Express.js
-- MongoDB
-- Mongoose
-- JWT Authentication
-- bcryptjs
-- CORS
-- dotenv
-
-### AI
-
-- Google Gemini API
-
----
-
-## ⚙️ Installation
-
-### 1. Clone the Repository
-
-```bash
-git clone https://github.com/your-username/NovaGPT.git
-
-cd NovaGPT
-```
-
----
-
-### 2. Install Backend Dependencies
-
-```bash
-cd Backend
-
-npm install
-```
-
-Start the backend server:
-
-```bash
-npm run dev
-```
-
----
-
-### 3. Install Frontend Dependencies
-
-```bash
-cd ../Frontend
-
-npm install
-```
-
-Start the frontend server:
-
-```bash
-npm run dev
-```
-
----
-
-## 📦 Packages Used
-
-### Frontend
+NovaGPT uses a dedicated AI agent layer to process user requests.
 
 ```text
-react
-react-router-dom
-axios
-react-markdown
-rehype-highlight
-react-spinners
-uuid
-```
-
-### Backend
-
-```text
-express
-mongoose
-cors
-dotenv
-jsonwebtoken
-bcryptjs
-@google/genai
-```
-
-> If your project uses `@google/generative-ai` instead, replace the last package accordingly.
-
----
-
-## 🚀 Deployment
-
-| Service | Platform |
-|---------|----------|
-| Frontend | Render |
-| Backend | Render |
-| Database | MongoDB Atlas |
-
----
-
-## 👨‍💻 Author
-
-### **Asir Rafique**
-
-🎓 B.Tech CSE(AIML) Graduate  
-💻 Full Stack Developer | AI Developer
-
----
-
-> **Built with ❤️ using React, Node.js, Express.js, MongoDB, and Google Gemini API.**
-
-## CI/CD
-
-NovaGPT uses GitHub Actions for linting, production builds, Docker image validation, and Trivy security scanning before Render deployment.
+User
+ │
+ ▼
+React Frontend
+ │
+ ▼
+Express API
+ │
+ ├── Authentication
+ │
+ ├── Conversation / Thread Management
+ │
+ ├── Document / RAG Services
+ │
+ ▼
+NovaGPT Agent
+ │
+ ├── Google Gemini API
+ ├── MCP / Tool Execution
+ ├── Context Processing
+ └── Source / Tool Metadata
+ │
+ ▼
+AI Response
+ │
+ ▼
+MongoDB
