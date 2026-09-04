@@ -1,495 +1,640 @@
 # 🚀 NovaGPT
 
-> **NovaGPT** is a production-ready, ChatGPT-inspired AI assistant built with the **MERN Stack and Google Gemini API**, featuring **AI agent workflows, tool/MCP execution, Retrieval-Augmented Generation (RAG), vector search, document intelligence, persistent conversations, secure authentication, rich AI responses, Dockerized deployment, and automated CI/CD**.
+> A full-stack AI assistant built with the MERN stack, Google Gemini, LangChain, RAG, MCP, and agentic AI workflows.
 
-![React](https://img.shields.io/badge/React-19-61DAFB?logo=react\&logoColor=white)
-![Node.js](https://img.shields.io/badge/Node.js-24-339933?logo=node.js\&logoColor=white)
-![Express](https://img.shields.io/badge/Express.js-Backend-000000?logo=express\&logoColor=white)
-![MongoDB](https://img.shields.io/badge/MongoDB-Database-47A248?logo=mongodb\&logoColor=white)
-![Gemini](https://img.shields.io/badge/Google-Gemini_API-4285F4?logo=google\&logoColor=white)
-![RAG](https://img.shields.io/badge/RAG-Vector_Search-8A2BE2)
-![MCP](https://img.shields.io/badge/MCP-Tool_Execution-FF6B35)
-![Docker](https://img.shields.io/badge/Docker-Containerized-2496ED?logo=docker\&logoColor=white)
-![GitHub Actions](https://img.shields.io/badge/GitHub_Actions-CI%2FCD-2088FF?logo=githubactions\&logoColor=white)
+[![React](https://img.shields.io/badge/React-19-61DAFB?logo=react&logoColor=white)](https://react.dev/)
+[![Node.js](https://img.shields.io/badge/Node.js-24-339933?logo=node.js&logoColor=white)](https://nodejs.org/)
+[![Express](https://img.shields.io/badge/Express.js-5-000000?logo=express&logoColor=white)](https://expressjs.com/)
+[![MongoDB](https://img.shields.io/badge/MongoDB-Atlas-47A248?logo=mongodb&logoColor=white)](https://www.mongodb.com/)
+[![Gemini](https://img.shields.io/badge/Google-Gemini-4285F4?logo=google&logoColor=white)](https://ai.google.dev/)
+[![LangChain](https://img.shields.io/badge/LangChain-Agent-1C3C3C?logo=chainlink&logoColor=white)](https://www.langchain.com/)
+[![RAG](https://img.shields.io/badge/AI-RAG-purple)]()
+[![MCP](https://img.shields.io/badge/AI-MCP-orange)]()
+[![Docker](https://img.shields.io/badge/Docker-Containerized-2496ED?logo=docker&logoColor=white)](https://www.docker.com/)
+[![Kubernetes](https://img.shields.io/badge/Kubernetes-Orchestration-326CE5?logo=kubernetes&logoColor=white)](https://kubernetes.io/)
+[![GitHub Actions](https://img.shields.io/badge/GitHub-Actions-2088FF?logo=github-actions&logoColor=white)](https://github.com/features/actions)
 
 ---
 
 ## 🌐 Live Demo
 
-🔗 **https://novagpt-frontend-4fht.onrender.com**
+**[🚀 Try NovaGPT](https://novagpt-frontend-4fht.onrender.com)**
+
+> The live application is deployed on **Render**.  
+> Kubernetes was also configured and tested locally with **Minikube** for orchestration, scaling, health checks, and deployment management.
 
 ---
 
-## 📖 Overview
+## 📌 Overview
 
-NovaGPT is a full-stack AI assistant inspired by ChatGPT and powered by the **Google Gemini API**.
+NovaGPT is a ChatGPT-inspired full-stack AI assistant designed to explore modern LLM application architecture.
 
-The application combines a modern **React 19 frontend**, **Node.js/Express backend**, and **MongoDB persistence** to provide authenticated conversations, persistent chat threads, document-based question answering, and intelligent AI agent workflows.
+It combines:
 
-Unlike a conventional chatbot that simply sends prompts to an LLM, NovaGPT includes an **agent layer capable of coordinating tools, retrieving relevant information, processing context, and generating grounded responses**.
+- **React.js** frontend
+- **Node.js + Express.js** backend
+- **MongoDB Atlas** for persistent data
+- **Google Gemini API** for LLM capabilities
+- **LangChain** for agent orchestration
+- **RAG** for document-based question answering
+- **MCP** for external tool integration
+- **Docker** for containerization
+- **GitHub Actions** for CI and security validation
+- **Kubernetes** for local orchestration and scaling experiments
 
-For document-based queries, NovaGPT implements a **Retrieval-Augmented Generation (RAG) pipeline** using **document indexing, embeddings, and vector similarity search** to retrieve relevant information before generating an answer.
-
-The application is also **Dockerized** and supported by a **GitHub Actions CI/CD pipeline** that performs frontend linting, production builds, Docker image validation, and Trivy security scanning before deployment.
+The project focuses on building an AI system where the model can reason, use tools, retrieve relevant information, and maintain conversations.
 
 ---
 
 # ✨ Features
 
-## 🤖 AI Assistant & Agentic Workflows
+## 🤖 AI Assistant
 
-* AI-powered conversations using **Google Gemini API**
-* Context-aware conversational responses
-* **AI agent workflow** for intelligent task execution
-* **Tool/function calling**
-* **MCP-based tool execution**
-* Multi-step agent execution
-* Tool selection and orchestration
-* Agent execution metadata and tool traces
-* AI response modes
-* Source and tool information
-* Retry/error handling for agent execution
+- Google Gemini-powered conversations
+- Context-aware responses
+- Markdown rendering
+- LaTeX/math rendering
+- Syntax highlighting
+- Retry failed responses
+- Conversation history
+- Thread-based chat organization
 
 ---
 
-## 🧠 RAG & Vector Search
+## 🧠 LangChain Agent Architecture
 
-NovaGPT includes a document-grounded AI pipeline for answering questions using user-provided or indexed knowledge.
+NovaGPT uses **LangChain** to orchestrate the AI agent and its tools.
 
-### RAG Pipeline
+The agent can:
+
+- Decide when tools are required
+- Call external tools
+- Perform document retrieval
+- Combine retrieved information with the LLM
+- Execute multi-step tool workflows
+- Track tool execution
+- Return structured execution information
+
+### Agent flow
+
+```text
+User Message
+     │
+     ▼
+┌───────────────┐
+│ LangChain     │
+│ Agent         │
+└───────┬───────┘
+        │
+        ├──────────────► Gemini
+        │
+        ├──────────────► RAG Tool
+        │                    │
+        │                    ▼
+        │              Vector Search
+        │
+        └──────────────► MCP Tools
+                             │
+                    ┌────────┴────────┐
+                    ▼                 ▼
+               Calculator        Current Time
+```
+
+---
+
+# 📚 Retrieval-Augmented Generation (RAG)
+
+NovaGPT includes a document intelligence pipeline that allows users to ask questions about uploaded documents.
+
+### RAG pipeline
 
 ```text
 Document
    │
    ▼
-Document Processing
+Text Extraction
    │
    ▼
-Chunking / Indexing
+Chunking
    │
    ▼
 Embeddings
    │
    ▼
-Vector Store
+Vector Database
    │
    ▼
-Semantic Vector Search
+Similarity Search
    │
    ▼
 Relevant Context
    │
    ▼
-Google Gemini
+LLM
    │
    ▼
-Grounded AI Response
+Answer + Sources
 ```
 
-### Capabilities
+### RAG capabilities
 
-* Document indexing
-* Document chunking and processing
-* Embedding generation
-* **Vector similarity search**
-* Semantic retrieval
-* Retrieval-Augmented Generation (**RAG**)
-* Document-aware question answering
-* Retrieved source information
-* Context injection into LLM prompts
-* Grounded AI responses based on retrieved content
+- Document ingestion
+- Text chunking
+- Embedding generation
+- Vector search
+- Context retrieval
+- Source tracking
+- Document-grounded answers
+- User-specific document isolation
 
 ---
 
-## 🛠️ AI Tools & MCP
+# 🔌 MCP — Model Context Protocol
 
-NovaGPT uses an agent architecture where the model can interact with external capabilities through tools.
+NovaGPT includes a custom MCP architecture for exposing tools to the AI agent.
+
+### Current MCP tools
+
+- 🧮 Calculator
+- 🕐 Current time
+
+### MCP architecture
 
 ```text
-User Request
-     │
-     ▼
-NovaGPT Agent
-     │
-     ├── Analyze Request
-     │
-     ├── Select Tool
-     │
-     ├── Execute Tool / MCP
-     │
-     ├── Process Tool Result
-     │
-     └── Continue Workflow
-     │
-     ▼
-Final AI Response
+                ┌─────────────────┐
+                │ LangChain Agent │
+                └────────┬────────┘
+                         │
+                         ▼
+                ┌─────────────────┐
+                │ MCP Client      │
+                └────────┬────────┘
+                         │
+                    Stdio Transport
+                         │
+                         ▼
+                ┌─────────────────┐
+                │ Custom MCP      │
+                │ Server          │
+                └────────┬────────┘
+                         │
+                 ┌───────┴────────┐
+                 ▼                ▼
+            Calculator       Current Time
 ```
 
-This allows NovaGPT to move beyond simple prompt → response interactions and support **tool-driven agent execution**.
-
-### Agent capabilities
-
-* Tool/function calling
-* MCP-based execution
-* Tool selection
-* Multi-step execution
-* Tool result processing
-* Execution metadata
-* Source tracking
-* Error handling and retry logic
+The MCP client dynamically discovers available tools from the MCP server instead of hardcoding every tool into the agent.
 
 ---
 
-# 💬 Chat & Conversation Management
+# 💬 Chat & Conversations
 
-* Persistent chat history
-* Unique conversation/thread IDs
-* Create new conversations
-* Switch between previous conversations
-* Rename conversations
-* Delete conversations
-* Pin conversations
-* Persistent conversation state
-* Recent Chats management
+NovaGPT supports persistent conversations using MongoDB.
+
+### Features
+
+- JWT authentication
+- User-specific conversations
+- Thread-based chats
+- Persistent chat history
+- Conversation retrieval
+- Chat deletion
+- Multiple conversation threads
 
 ---
 
-# 📚 Document Intelligence
+# 🔐 Authentication
 
-Users can work with documents and ask questions about their content.
+NovaGPT uses JWT-based authentication.
 
-### Supported workflow
+### Authentication flow
 
 ```text
-Upload / Index Document
-          │
-          ▼
-   Process Document
-          │
-          ▼
- Generate Embeddings
-          │
-          ▼
-   Vector Retrieval
-          │
-          ▼
- Retrieve Relevant Context
-          │
-          ▼
-      Gemini LLM
-          │
-          ▼
- Context-Aware Answer
+User
+ │
+ ▼
+Login / Register
+ │
+ ▼
+Express API
+ │
+ ▼
+JWT Token
+ │
+ ▼
+Authenticated Requests
+ │
+ ▼
+Protected Resources
 ```
 
-This enables NovaGPT to answer questions using information from the indexed document instead of relying exclusively on the LLM's pretrained knowledge.
+Passwords are securely hashed using bcrypt before storage.
 
 ---
 
-# 🔐 Authentication & Security
+# 📄 Document Intelligence
 
-* Secure user signup and login
-* JWT-based authentication
-* Password hashing with `bcryptjs`
-* Protected API routes
-* Authenticated user-specific conversations
-* Secure API architecture
-* Docker container security validation
-* Trivy vulnerability scanning in CI/CD
+Users can upload documents and interact with them through the AI assistant.
 
----
+The system:
 
-# 📝 Rich AI Responses
-
-* Markdown rendering
-* Syntax-highlighted code blocks
-* Mathematical / LaTeX rendering
-* Dynamic response handling
-* Copy responses
-* Regenerate responses
-* Like / dislike interactions
-* Source information
-* Tool execution metadata
+1. Accepts the document
+2. Extracts the text
+3. Splits the content into chunks
+4. Generates embeddings
+5. Stores searchable representations
+6. Retrieves relevant chunks
+7. Sends context to the AI agent
+8. Generates a grounded response
 
 ---
 
-# 🎨 User Experience
+# 🐳 Docker
 
-* ChatGPT-inspired interface
-* Responsive React UI
-* Light / Dark / System theme support
-* Loading states
-* Voice input support
-* File/document interaction
-* Modern sidebar
-* Conversation management
-* Responsive chat experience
+NovaGPT is containerized using Docker.
+
+### Services
+
+```text
+┌───────────────────────┐
+│      Frontend         │
+│     React + Nginx     │
+│       Port 80         │
+└───────────┬───────────┘
+            │
+            ▼
+┌───────────────────────┐
+│       Backend         │
+│  Node.js + Express    │
+│      Port 8080        │
+└───────────┬───────────┘
+            │
+            ▼
+      MongoDB Atlas
+```
+
+### Docker Compose
+
+The application can be run locally using Docker Compose.
+
+```bash
+docker compose up --build
+```
+
+---
+
+# ☸️ Kubernetes
+
+NovaGPT was also configured and tested on a local Kubernetes cluster using **Minikube**.
+
+The Kubernetes setup demonstrates practical container orchestration concepts.
+
+### Implemented Kubernetes resources
+
+- Namespace
+- Deployments
+- Pods
+- ClusterIP Services
+- Ingress
+- ConfigMaps
+- Secrets
+- Startup probes
+- Readiness probes
+- Liveness probes
+- CPU/memory requests and limits
+- Horizontal Pod Autoscaling
+- Rolling updates
+- Rollbacks
+- PersistentVolumeClaims
+
+### Kubernetes architecture
+
+```text
+                    ┌─────────────────────┐
+                    │       Ingress       │
+                    │      NGINX          │
+                    └──────────┬──────────┘
+                               │
+                    ┌──────────┴──────────┐
+                    │                     │
+                    ▼                     ▼
+          ┌─────────────────┐   ┌─────────────────┐
+          │ Frontend Service│   │ Backend Service │
+          └────────┬────────┘   └────────┬────────┘
+                   │                     │
+                   ▼                     ▼
+          ┌─────────────────┐   ┌─────────────────┐
+          │ Frontend Pods   │   │ Backend Pods    │
+          │                 │   │                 │
+          │ React + Nginx   │   │ Node + Express  │
+          └─────────────────┘   └────────┬────────┘
+                                         │
+                                         ▼
+                                  ┌──────────────┐
+                                  │ MongoDB Atlas │
+                                  └──────────────┘
+
+                           ┌────────────────────┐
+                           │       HPA          │
+                           │  CPU-based scaling │
+                           └────────────────────┘
+```
+
+### Kubernetes capabilities tested
+
+#### Self-healing
+
+Deleting a running Pod causes the Deployment to automatically create a replacement.
+
+#### Rolling updates
+
+New application versions can be deployed without stopping all replicas simultaneously.
+
+#### Rollback
+
+A previous Deployment revision can be restored when a deployment causes problems.
+
+#### Health checks
+
+The backend uses:
+
+- `startupProbe`
+- `readinessProbe`
+- `livenessProbe`
+
+#### Horizontal scaling
+
+The backend uses an HPA configured to scale between multiple replicas based on CPU utilization.
+
+> **Note:** Kubernetes was used for local learning, testing, orchestration, scaling, and deployment management. The publicly accessible NovaGPT application remains deployed on Render.
+
+---
+
+# ⚙️ Configuration
+
+Environment variables are used for sensitive configuration such as:
+
+```text
+GEMINI_API_KEY
+MONGODB_URI
+JWT_SECRET
+```
+
+Sensitive values are stored using environment variables and Kubernetes Secrets rather than being committed to the repository.
+
+---
+
+# 🔄 CI Pipeline
+
+NovaGPT uses GitHub Actions for continuous integration.
+
+The CI workflow performs:
+
+```text
+Push / Pull Request
+        │
+        ▼
+  Checkout Code
+        │
+        ├───────────────┐
+        ▼               ▼
+    Backend         Frontend
+    npm ci           npm ci
+       │                │
+       ▼                ▼
+ Docker Build      Lint + Build
+       │                │
+       └───────┬────────┘
+               ▼
+        Docker Images
+               │
+               ▼
+        Trivy Security Scan
+```
+
+### CI checks
+
+- Dependency installation
+- Frontend linting
+- Frontend production build
+- Docker image builds
+- Trivy vulnerability scanning
+
+> Render is used for the live deployment. The GitHub Actions workflow performs CI and security validation.
 
 ---
 
 # 🏗️ System Architecture
 
 ```text
-                         ┌─────────────────────┐
-                         │      User           │
-                         └──────────┬──────────┘
-                                    │
-                                    ▼
-                         ┌─────────────────────┐
-                         │   React Frontend    │
-                         │      React 19       │
-                         └──────────┬──────────┘
-                                    │
-                                    ▼
-                         ┌─────────────────────┐
-                         │    Express API      │
-                         │     Node.js 24      │
-                         └──────────┬──────────┘
-                                    │
-              ┌─────────────────────┼──────────────────────┐
-              │                     │                      │
-              ▼                     ▼                      ▼
-      ┌───────────────┐    ┌────────────────┐    ┌─────────────────┐
-      │ Authentication│    │ Conversations  │    │ Document / RAG  │
-      │ JWT + bcrypt  │    │ & Threads      │    │ Services        │
-      └───────────────┘    └────────────────┘    └────────┬────────┘
-                                                           │
-                                                           ▼
-                                                   ┌───────────────┐
-                                                   │ Vector Search │
-                                                   │ + Embeddings  │
-                                                   └───────┬───────┘
-                                                           │
-                                                           ▼
-                         ┌─────────────────────────────────────────┐
-                         │             NovaGPT Agent               │
-                         │                                         │
-                         │  ┌─────────────┐  ┌─────────────────┐ │
-                         │  │ Gemini API  │  │ MCP / Tools     │ │
-                         │  └─────────────┘  └─────────────────┘ │
-                         │                                         │
-                         │  Context Processing                     │
-                         │  Tool Orchestration                     │
-                         │  Multi-Step Execution                   │
-                         │  Source / Tool Metadata                 │
-                         └────────────────────┬────────────────────┘
-                                              │
-                                              ▼
-                                    ┌─────────────────┐
-                                    │   AI Response   │
-                                    └────────┬────────┘
-                                             │
-                                             ▼
-                                    ┌─────────────────┐
-                                    │    MongoDB      │
-                                    │ Persistence     │
-                                    └─────────────────┘
+                         User
+                           │
+                           ▼
+                    ┌─────────────┐
+                    │   React UI  │
+                    └──────┬──────┘
+                           │
+                           ▼
+                    ┌─────────────┐
+                    │ Express API │
+                    └──────┬──────┘
+                           │
+                           ▼
+                ┌──────────────────────┐
+                │   LangChain Agent    │
+                └──────────┬───────────┘
+                           │
+          ┌────────────────┼────────────────┐
+          │                │                │
+          ▼                ▼                ▼
+       Gemini             RAG              MCP
+        LLM              Tool             Tools
+          │                │                │
+          │                ▼                ▼
+          │          Vector Search     MCP Server
+          │                │                │
+          └────────────────┼────────────────┘
+                           │
+                           ▼
+                     Final Response
+                           │
+                           ▼
+                    React Interface
+
+                           │
+                           ▼
+                    MongoDB Atlas
 ```
 
 ---
 
-# 🔄 Agentic RAG Workflow
+# 🧠 Agentic AI Concepts Demonstrated
 
-For knowledge-intensive requests, NovaGPT can combine **agentic execution with RAG**.
+NovaGPT explores several modern AI engineering concepts:
+
+### Tool Calling
+
+The AI can decide when external tools are required and invoke them.
+
+### Retrieval-Augmented Generation
+
+The AI retrieves relevant information before generating document-grounded responses.
+
+### Agent Orchestration
+
+LangChain manages the interaction between the LLM, tools, and retrieval systems.
+
+### MCP
+
+Tools can be exposed through a standardized protocol and dynamically discovered by the client.
+
+### Execution Tracing
+
+Tool calls and agent execution can be tracked to understand how a response was produced.
+
+---
+
+# 🚀 Getting Started
+
+## 1. Clone the repository
+
+```bash
+git clone https://github.com/asirrafique/NovaGPT.git
+cd NovaGPT
+```
+
+## 2. Install backend dependencies
+
+```bash
+cd Backend
+npm install
+```
+
+## 3. Install frontend dependencies
+
+```bash
+cd ../Frontend
+npm install
+```
+
+## 4. Configure environment variables
+
+Create the required `.env` files and provide your:
 
 ```text
-User Query
-    │
-    ▼
-Agent
-    │
-    ├── Determine Intent
-    │
-    ├── Decide Whether Retrieval Is Needed
-    │
-    ▼
-Vector Search
-    │
-    ▼
-Relevant Documents / Chunks
-    │
-    ▼
-Context Assembly
-    │
-    ▼
-Gemini
-    │
-    ├── Generate Answer
-    │
-    └── Include Source Information
-    │
-    ▼
-Final Response
+MongoDB credentials
+Gemini API key
+JWT secret
 ```
 
-This architecture combines **agentic decision-making** with **retrieval-based grounding**, allowing the assistant to use external knowledge while still leveraging Gemini for reasoning and response generation.
+## 5. Run the backend
 
----
+```bash
+cd Backend
+npm run dev
+```
 
-# 🗄️ Data & Persistence
+## 6. Run the frontend
 
-MongoDB is used for persistent application data, including:
-
-* User accounts
-* Authentication-related data
-* Conversation threads
-* Chat messages
-* Conversation metadata
-* Document-related information
-* Agent execution metadata
-
----
-
-# 🐳 Docker & Deployment
-
-NovaGPT is containerized using Docker for consistent development and production environments.
-
-### Deployment stack
-
-```text
-GitHub Repository
-       │
-       ▼
-GitHub Actions
-       │
-       ├── Frontend Lint
-       │
-       ├── Production Build
-       │
-       ├── Docker Build Validation
-       │
-       └── Trivy Security Scan
-       │
-       ▼
-Production Deployment
+```bash
+cd Frontend
+npm run dev
 ```
 
 ---
 
-# ⚙️ CI/CD Pipeline
+# 🐳 Run with Docker
 
-NovaGPT includes an automated GitHub Actions pipeline.
+From the project root:
 
-### Pipeline checks
+```bash
+docker compose up --build
+```
 
-* Frontend linting
-* Production build validation
-* Docker image validation
-* Container security scanning
-* Trivy vulnerability scanning
-* Automated deployment workflow
-
-This ensures that changes are validated before reaching the production environment.
+Then open the frontend in your browser.
 
 ---
 
-# 🛠️ Tech Stack
+# ☸️ Kubernetes Deployment
 
-## Frontend
+Make sure Minikube is running:
 
-* React 19
-* JavaScript
-* HTML5
-* CSS3
-* Markdown rendering
-* LaTeX / KaTeX
-* React Router
+```bash
+minikube start --driver=docker
+```
 
-## Backend
+Apply the namespace:
 
-* Node.js 24
-* Express.js
-* REST APIs
-* JWT Authentication
-* bcryptjs
+```bash
+kubectl apply -f k8s/novagpt/namespace.yaml
+```
 
-## AI / GenAI
+Apply the Kubernetes resources:
 
-* Google Gemini API
-* AI Agent Workflows
-* Tool / Function Calling
-* MCP
-* Multi-step Agent Execution
-* Retrieval-Augmented Generation (RAG)
-* Embeddings
-* Vector Search
-* Semantic Retrieval
+```bash
+kubectl apply -f k8s/novagpt/
+```
 
-## Database
+Check the resources:
 
-* MongoDB
+```bash
+kubectl get pods -n novagpt
+kubectl get deployments -n novagpt
+kubectl get services -n novagpt
+kubectl get ingress -n novagpt
+```
 
-## DevOps
+Check HPA:
 
-* Docker
-* GitHub Actions
-* CI/CD
-* Trivy
-* Render
-
-## Development
-
-* Git
-* GitHub
-* Environment Variables
-* API-based architecture
+```bash
+kubectl get hpa -n novagpt
+```
 
 ---
 
-# 🧠 Agentic AI Concepts Implemented
+# 📈 Engineering Highlights
 
-NovaGPT demonstrates practical implementation of several modern Agentic AI concepts:
+NovaGPT demonstrates practical experience with:
 
-| Concept                  | Implementation in NovaGPT                              |
-| ------------------------ | ------------------------------------------------------ |
-| **Agentic Workflow**     | Agent layer coordinates reasoning and execution        |
-| **Tool Calling**         | Agent can invoke available tools/functions             |
-| **MCP**                  | Tool-based agent execution through MCP                 |
-| **Multi-Step Execution** | Agent can perform sequential operations                |
-| **RAG**                  | Retrieves external document context before generation  |
-| **Vector Search**        | Semantic similarity retrieval from indexed knowledge   |
-| **Embeddings**           | Documents/query represented as vectors for retrieval   |
-| **Context Augmentation** | Retrieved information is supplied to Gemini            |
-| **Source Tracking**      | Retrieved sources/tool metadata exposed with responses |
-| **Retry Handling**       | Failed operations can be retried for reliability       |
-
----
-
-# 🎯 Key Engineering Highlights
-
-NovaGPT demonstrates practical experience in:
-
-* Full-stack MERN application development
-* Generative AI application development
-* Agentic AI architecture
-* LLM integration
-* Tool/function calling
-* MCP-based tool execution
-* RAG pipelines
-* Vector search and semantic retrieval
-* Embedding-based knowledge retrieval
-* Secure authentication
-* Persistent conversational systems
-* REST API development
-* Docker containerization
-* CI/CD automation
-* Container security scanning
-* Production deployment
+- Full-stack MERN development
+- REST API development
+- JWT authentication
+- MongoDB data persistence
+- LLM integration
+- LangChain agent orchestration
+- RAG pipelines
+- Vector search
+- MCP architecture
+- Tool calling
+- AI agent workflows
+- Docker containerization
+- Docker Compose
+- Kubernetes deployments
+- Kubernetes Services and Ingress
+- ConfigMaps and Secrets
+- Health probes
+- Resource management
+- Horizontal Pod Autoscaling
+- Rolling updates and rollback
+- GitHub Actions CI
+- Docker security scanning with Trivy
 
 ---
 
-# 🚀 Future Improvements
+# 🔮 Future Improvements
 
-Potential future enhancements include:
+Potential improvements include:
 
-* Streaming agent responses
-* More specialized AI tools
-* Advanced agent planning
-* Long-term conversational memory
-* Improved document retrieval and reranking
-* Hybrid keyword + vector retrieval
-* Evaluation and observability with dedicated LLM evaluation tooling
-* More autonomous multi-agent workflows
+- Streaming agent responses
+- More MCP tools
+- Advanced document processing
+- Improved RAG evaluation
+- Reranking models
+- LLM evaluation and observability
+- More sophisticated agent workflows
+- Production Kubernetes deployment
+- Cloud infrastructure
+- Automated deployment pipelines
 
 ---
 
@@ -497,8 +642,7 @@ Potential future enhancements include:
 
 **Asir Rafique**
 
-B.Tech Computer Science & Engineering
-Full-Stack Developer | AI & GenAI Developer
+B.Tech Computer Science & Engineering — AI/ML
 
-* GitHub: **https://github.com/**
-* LinkedIn: **https://www.linkedin.com/in/asir-rafique07/**
+- GitHub: [asirrafique](https://github.com/asirrafique)
+- LinkedIn: [Asir Rafique](https://www.linkedin.com/in/asir-rafique07/)
