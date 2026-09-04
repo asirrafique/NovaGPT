@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: novagpt-backend
+  namespace: novagpt
+
+spec:
+  selector:
+    app: novagpt-backend
+
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080
+
+  type: ClusterIP

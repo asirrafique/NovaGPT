@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: novagpt-frontend
+  namespace: novagpt
+
+spec:
+  replicas: 1
+
+  selector:
+    matchLabels:
+      app: novagpt-frontend
+
+  template:
+    metadata:
+      labels:
+        app: novagpt-frontend
+
+    spec:
+      containers:
+        - name: frontend
+          image: novagpt-frontend:k8s
+          imagePullPolicy: Never
+
+          ports:
+            - containerPort: 80

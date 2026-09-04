@@ -38,6 +38,14 @@ app.use(
   })
 );
 
+// Health check
+app.get("/health", (req, res) => {
+    res.status(200).json({
+        status: "ok",
+        service: "novagpt-backend"
+    });
+});
+
 // Routes
 app.use("/api", chatRoutes);
 app.use("/api/auth", authRoutes);
